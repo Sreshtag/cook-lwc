@@ -1,0 +1,26 @@
+<template>
+    <div class="app slds-p-around_large">
+        <div class="box">
+            <h1>ALARM</h1>
+            <img src={clockmig} alt="rale" height="200px" width="200px" class={shakeimg}>
+            <h2>{currentTime}</h2>
+            <div class="slds-grid slds-gutters slds-var-m-bottom_medium">
+                <div class="slds-col">
+                    <c-dropdown label="Hour(s)" options={hours} unique-id="select-hour" onoptionhandler={optionhandler}></c-dropdown>
+                </div>
+                <div class="slds-col">
+                    <c-dropdown label="Minutes(s)" options={minutes} unique-id="select-minute" onoptionhandler={optionhandler}></c-dropdown>
+                </div>
+                <div class="slds-col">
+                    <c-dropdown label="AM/PM" options={meridians} unique-id="select-meridian" onoptionhandler={optionhandler}></c-dropdown>
+                </div>
+            </div>
+            <template if:false={isalarmset}>
+                <button class="slds-button slds-button_neutral slds-button_stretch" disabled={allvaluesselected} onclick={setAlarmHandler}>Set Alarm</button>
+            </template>
+            <template if:true={isalarmset}>
+                <button class="slds-button slds-button_neutral slds-button_stretch" onclick={clearAlarmHandler}>Clear Alarm</button>
+            </template>
+            </div>
+    </div>
+</template>
