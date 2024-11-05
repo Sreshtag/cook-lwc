@@ -1,0 +1,53 @@
+<template>
+    <div class="app">
+        <div class="card">
+            <h1><span><img src={arrowback} onclick={backHandler} alt="back arrow"></span> Weather App</h1>
+            <template if:false={response}>
+                <template lwc:if={loadingText}>
+                    <div class={load}>{loadingText}</div>
+                </template>
+                <form onsubmit={formHandler}>
+                    <input type="text" placeholder="please enter a city name" spellcheck="false"
+                        onkeyup={searchHandler} />
+                    <button class="slds-button slds-button_neutral slds-button_stretch">Search</button>
+                </form>
+            </template>
+            <template if:true={response}>
+                <section class="slds-var-m-around_large">
+                    <div class="temperature">
+                        <div><img src={weatherIcon} alt="img" style="width:100px;height:100px"></div>
+                        <span>{response.temperature}</span>
+                        <span>°</span>C
+                    </div>
+                    <div class="description">{response.description}</div>
+                    <div class="location">
+                        <img src={mapicon} alt="img">
+                        <span>{response.location}</span>
+                    </div>
+                </section>
+
+                <footer>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col" style="border-right: 1px white solid;">
+                            <div>
+                                <img src={thermometericon} alt="img">
+                                <div>{response.temperature}<span></span>°C</div>
+                                <p>feels like</p>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <div>
+
+                                <img src={dropleticon} alt="img">
+                                <div>{response.humidity}</div>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </footer>
+            </template>
+
+        </div>
+    </div>
+</template>
