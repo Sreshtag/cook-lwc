@@ -9,6 +9,9 @@ export default class Graphs extends LightningElement {
  @api chartConfig;
  @track isChartJsInitialized;
 
+ @api chartLabels
+ @api chartData
+
  
  renderedCallback() {
   if (this.isChartJsInitialized) {

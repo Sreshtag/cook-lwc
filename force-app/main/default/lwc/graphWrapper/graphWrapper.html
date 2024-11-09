@@ -1,20 +1,31 @@
 <template>
-    <lightning-card title="Select a chart Type" icon-name="utility:chart" style="overflow: scroll;">
-        <lightning-combobox name="progress" label="Status" value={value} placeholder="Select Progress" options={options}
-            onchange={getchartType}>
-        </lightning-combobox>
-        <template if:true={barchartSelected}>
-            <c-graphs chart-config={barchart}></c-graphs>
+    <div class="app">
+        <template lwc:if={request}>
+            <form onsubmit={createChartHandler}><lightning-textarea name="input1" label="Copy your chartLabels here" value={value} required
+                onchange={inputTextHandler1}></lightning-textarea>
+            <lightning-textarea name="input1" label="Copy your chartData here" value={value} required
+                onchange={inputTextHandler2}></lightning-textarea>
+            <template if:true={chartConfiguration}>
+                <lightning-card title="Select a chart Type" icon-name="utility:chart" style="overflow: scroll;">
+                    <c-graphs chart-config={chartConfiguration}></c-graphs>
+                </lightning-card>
+            </template>
+            <lightning-combobox name="Chart" label="Chart Type" value={value} placeholder="Select Chart Type (Bar is default is none selected)" required
+                options={options} onchange={handleChange}></lightning-combobox>
+            <button class="slds-button" type="submit">Create a
+                chart</button></form>
         </template>
-        <template if:true={polarchartselected}>
-            <c-graphs chart-config={polarAreachart}></c-graphs>
+        <template lwc:if={response}>
+            <lightning-card title="Select a chart Type" icon-name="utility:chart" style="overflow: scroll;">
+                <button class="slds-button" onclick={resestApp}>Reset
+                    App</button>
+                <template if:true={chartConfiguration}>
+                    <lightning-combobox name="Chart" label="Chart Type" value={value} placeholder="Select Chart Type (Bar is default is none selected)"
+                        options={options} onchange={handleChange}></lightning-combobox>
+                    <c-graphs chart-config={chartConfiguration} chart-labels={chartLabels}
+                        chart-data={chartData}></c-graphs>
+                </template>
+            </lightning-card>
         </template>
-        <template if:true={scatterChartselected}>
-            <c-graphs chart-config={scatterChart}></c-graphs>
-        </template>
-        <template if:true={scatterChartselected}>
-            <c-graphs chart-config={lineChart}></c-graphs>
-        </template>
-        
-    </lightning-card>
+    </div>
 </template>

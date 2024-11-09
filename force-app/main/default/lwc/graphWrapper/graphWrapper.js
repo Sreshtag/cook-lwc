@@ -1,17 +1,15 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, track, wire ,api} from 'lwc';
 
 export default class FileUpload extends LightningElement {
+  request=true
+  response = false
   @track chartConfiguration;
-  barchartSelected
-  polarchartselected
-  scatterChartselected
-  lineChartSelected
-  chartLabels = ["honey", "money", "sunny", "funny", "notfunny", "honey", "money", "sunny", "funny", "notfunny"]
-  chartData = [100, 200, 300, 400, 500, 100, 200, 300, 400, 500]
+  chartTypeSelected
+  chartLabels 
+  chartData 
   barchart = {
     type: 'bar',
     data: {
-      labels: this.chartLabels,
       datasets: [
         {
           label: 'Closed Won Last Week',
@@ -30,7 +28,6 @@ export default class FileUpload extends LightningElement {
   polarAreachart = {
     type: 'polarArea',
     data: {
-      labels: this.chartLabels,
       datasets: [
         {
           label: 'Closed Won Last Week',
@@ -44,41 +41,11 @@ export default class FileUpload extends LightningElement {
       ],
     },
     options: {
-    },
-  }
-  scatterChart = {
-    type: 'scatter',
-    data: {
-      labels: this.chartLabels,
-      datasets: [
-        {
-          label: 'Closed Won Last Week',
-          barPercentage: 0.5,
-          barThickness: 6,
-          maxBarThickness: 8,
-          minBarLength: 2,
-          backgroundColor: "midnightblue",
-          data: this.chartData,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Chart.js Scatter Chart'
-        }
-      }
     },
   }
   lineChart = {
     type: 'line',
     data: {
-      labels: this.chartLabels,
       datasets: [
         {
           label: 'Closed Won Last Week',
@@ -95,34 +62,62 @@ export default class FileUpload extends LightningElement {
     },
   }
 
-  getchartType(event) {
-    console.log("getcharttype")
-    const type = event.target.value
-    console.log(type)
-    type === "bar" ? (
-      this.polarchartselected = false,
-      this.barchartSelected = true,
-      this.scatterChartselected = false
-    ) :
-      type === "polarArea" ? (
-        this.polarchartselected = true,
-        this.barchartSelected = false,
-        this.scatterChartselected = false
-      ) :
-        type === "scatter" ? (
-          this.polarchartselected = false,
-          this.barchartSelected = false,
-          this.scatterChartselected = true
-        ) :
-          this.lineChartSelected = true
-  }
   get options() {
     return [
       { label: 'bar', value: 'bar' },
       { label: 'polarArea', value: 'polarArea' },
-      { label: 'scatter', value: 'scatter' },
       { label: 'line', value: 'line' },
     ];
+  }
+
+
+  inputTextHandler1(event) {
+    var dataCheck = false;
+    event.preventDefault();
+    if (event.target.value !== "") {
+      dataCheck = true;
+      this.chartLabels = event.target.value.split(",");
+    }
+  }
+  inputTextHandler2(event) {
+    var dataCheck = false;
+    event.preventDefault();
+    if (event.target.value !== "") {
+      dataCheck = true;
+      this.chartData = event.target.value.split(",");
+      this.chartData = this.chartData.map(Number)
+    }
+    
+  }
+  createChartHandler(){
+    this.response=true
+    this.request=false
+    this.chartTypeSelected === "bar" ? (
+      this.chartConfiguration =this.barchart
+    ) :
+    this.chartTypeSelected === "polarArea" ? (
+        this.chartConfiguration =this.polarAreachart
+      ) :
+      this.chartTypeSelected === "line" ? (
+          this.chartConfiguration =this.lineChart
+        ) :
+        this.chartConfiguration =this.barchart
+    
+    this.chartConfiguration.data.labels=this.chartLabels
+    this.chartConfiguration.data.datasets[0].data= this.chartData
+    console.log(JSON.stringify(this.chartConfiguration))
+  }
+  handleChange(event){
+    this.chartTypeSelected=event.target.value
+  }
+  resestApp(){
+    this.request=true
+    this.response = false
+    this.chartData=""
+    this.chartLabels=""
+    this.chartConfiguration=""
+    this.chartTypeSelected=""
+
   }
 }
 
