@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Chart selected</masterLabel>
+    <isExposed>true</isExposed>
+    <description>Message Channel to pass chart styles</description>
+     <lightningMessageFields>
+        <fieldName>Type</fieldName>
+        <description>This is the type of the Chart</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+         <fieldName>Color</fieldName>
+        <description>This is the Color of the chart</description>
+     </lightningMessageFields>
+</LightningMessageChannel>
