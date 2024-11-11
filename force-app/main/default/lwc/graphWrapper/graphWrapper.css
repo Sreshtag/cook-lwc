@@ -5,10 +5,16 @@
 
 button{
     background-color: midnightblue;
-    width: 300px;
+    max-width: 300px;
     color: white;
 }
 .app{
     text-align: center;
     padding: 20px;
+    margin: 24px auto;
+}
+h1{
+font-size: 35px;
+color: midnightblue;
+font-weight: bold;
 }

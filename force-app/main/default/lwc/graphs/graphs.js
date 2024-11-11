@@ -3,15 +3,10 @@ import chartjs from '@salesforce/resourceUrl/ChartJs';
 import {loadScript} from 'lightning/platformResourceLoader';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 
-
 export default class Graphs extends LightningElement {
  @api loaderVariant = 'base';
  @api chartConfig;
  @track isChartJsInitialized;
-
- @api chartLabels
- @api chartData
-
  
  renderedCallback() {
   if (this.isChartJsInitialized) {

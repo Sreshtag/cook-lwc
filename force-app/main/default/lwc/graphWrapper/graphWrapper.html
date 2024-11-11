@@ -1,27 +1,19 @@
 <template>
     <div class="app">
+        <h1>CHART GENERATOR</h1>
         <template lwc:if={request}>
-            <form onsubmit={createChartHandler}><lightning-textarea name="input1" label="Copy your chartLabels here" value={value} required
-                onchange={inputTextHandler1}></lightning-textarea>
-            <lightning-textarea name="input1" label="Copy your chartData here" value={value} required
-                onchange={inputTextHandler2}></lightning-textarea>
-            <template if:true={chartConfiguration}>
-                <lightning-card title="Select a chart Type" icon-name="utility:chart" style="overflow: scroll;">
-                    <c-graphs chart-config={chartConfiguration}></c-graphs>
-                </lightning-card>
-            </template>
-            <lightning-combobox name="Chart" label="Chart Type" value={value} placeholder="Select Chart Type (Bar is default is none selected)" required
-                options={options} onchange={handleChange}></lightning-combobox>
-            <button class="slds-button" type="submit">Create a
-                chart</button></form>
+            <form onsubmit={submithandler}><lightning-textarea name="chartLabels" label="Copy your chartLabels here" value={value} required
+                onchange={inputTextHandler}></lightning-textarea>
+            <lightning-textarea name="chartData" label="Copy your chartData here" value={chartData} required
+                onchange={inputTextHandler}></lightning-textarea>
+            <lightning-combobox name="Chart" label="Chart Type" value={value} placeholder="Select Chart Type (Bar is default is none selected)" 
+                options={options} onchange={inputTextHandler}></lightning-combobox>
+                <button class="slds-button slds-button_outline-brand" type="submit">Generate Chart</button></form>
         </template>
         <template lwc:if={response}>
             <lightning-card title="Select a chart Type" icon-name="utility:chart" style="overflow: scroll;">
-                <button class="slds-button" onclick={resestApp}>Reset
-                    App</button>
+                <button class="slds-button slds-button_outline-brand" onclick={resestApp}>Reset Chart</button></form>
                 <template if:true={chartConfiguration}>
-                    <lightning-combobox name="Chart" label="Chart Type" value={value} placeholder="Select Chart Type (Bar is default is none selected)"
-                        options={options} onchange={handleChange}></lightning-combobox>
                     <c-graphs chart-config={chartConfiguration} chart-labels={chartLabels}
                         chart-data={chartData}></c-graphs>
                 </template>

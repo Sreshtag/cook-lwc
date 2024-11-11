@@ -3,7 +3,7 @@ import { LightningElement, track, wire ,api} from 'lwc';
 export default class FileUpload extends LightningElement {
   request=true
   response = false
-  @track chartConfiguration;
+  chartConfiguration
   chartTypeSelected
   chartLabels 
   chartData 
@@ -70,24 +70,19 @@ export default class FileUpload extends LightningElement {
     ];
   }
 
-
-  inputTextHandler1(event) {
-    var dataCheck = false;
-    event.preventDefault();
-    if (event.target.value !== "") {
-      dataCheck = true;
-      this.chartLabels = event.target.value.split(",");
-    }
-  }
-  inputTextHandler2(event) {
-    var dataCheck = false;
-    event.preventDefault();
-    if (event.target.value !== "") {
-      dataCheck = true;
-      this.chartData = event.target.value.split(",");
-      this.chartData = this.chartData.map(Number)
-    }
-    
+  submithandler(event){
+    event.preventDefault()
+    this.createChartHandler()
+}
+  inputTextHandler(event) {
+    const {name,value}=event.target
+    if(name=="chartLabels")
+    {this.chartLabels = value.split(",")}
+    else if(name=="chartData")
+    {this.chartData =value.split(",")}
+    else if(name=="Chart")
+    {console.log(value)
+      this.chartTypeSelected =value}
   }
   createChartHandler(){
     this.response=true
@@ -107,9 +102,6 @@ export default class FileUpload extends LightningElement {
     this.chartConfiguration.data.datasets[0].data= this.chartData
     console.log(JSON.stringify(this.chartConfiguration))
   }
-  handleChange(event){
-    this.chartTypeSelected=event.target.value
-  }
   resestApp(){
     this.request=true
     this.response = false
@@ -117,7 +109,6 @@ export default class FileUpload extends LightningElement {
     this.chartLabels=""
     this.chartConfiguration=""
     this.chartTypeSelected=""
-
   }
 }
 
