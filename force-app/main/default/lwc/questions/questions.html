@@ -1,0 +1,23 @@
+<template>
+    <div class="questionBase">
+        <template for:each={questions} for:item="question">
+            <div key={question.id}>
+                <strong>{question.id} {question.question}</strong>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <input type="radio" name={question.id} value="a" onchange={changeHandler}>
+                        <span>{question.answers.a}</span>
+                    </div>
+                    <div class="slds-col">
+                        <input type="radio" name={question.id} value="b" onchange={changeHandler}>
+                        <span>{question.answers.b}</span>
+                    </div>
+                    <div class="slds-col">
+                        <input type="radio" name={question.id} value="b" onchange={changeHandler}>
+                        <span>{question.answers.b}</span>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>
