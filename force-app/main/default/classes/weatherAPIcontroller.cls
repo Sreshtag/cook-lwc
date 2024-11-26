@@ -21,5 +21,4 @@ public with sharing class weatherAPIcontroller {
         String key =system.label.weatherapikey;
         return key;
     }
-    
 }

@@ -1,11 +1,28 @@
 <template>
-    <lightning-record-view-form record-id={recordId} object-api-name={objectName} density="comfy">
-        <lightning-layout multiple-rows>
-            <lightning-layout-item size="12">
-                <lightning-output-field field-name="Name" variant="label-hidden"></lightning-output-field>
-                <lightning-output-field field-name="StageName" variant="label-hidden"></lightning-output-field>
-                <lightning-output-field field-name="ForecastCategoryName" variant="label-hidden"></lightning-output-field>
-            </lightning-layout-item>
-        </lightning-layout>
-    </lightning-record-view-form>
+    <div>
+        <h1>Please select and object</h1>
+        <lightning-select
+            name="operation"
+            label="Please Select the Operation"
+            value={operation}
+            options={operations}
+            onchange={handleOperation}
+            required ></lightning-select>
+        <lightning-select
+            name="object"
+            label="Please Select the Object"
+            value={object}
+            options={objects}
+            onchange={handleOptionChange}
+            required ></lightning-select>
+    </div>
+    <div class="row">
+        <lightning-textarea name="Input" label="Please Paste your excel here" placeholder="type here..." value={data} onchange={changeHandler}></lightning-textarea>
+    </div>
+        <lightning-datatable
+        data={dataInTable}
+        columns={columns}
+        key-field="Id"
+        style="overflow:scroll">
+    </lightning-datatable>
 </template>
