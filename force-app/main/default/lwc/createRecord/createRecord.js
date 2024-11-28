@@ -1,33 +1,42 @@
 import { LightningElement } from 'lwc';
 import createJob from '@salesforce/apex/createJob.createJob'
 export default class CreateRecord extends LightningElement {
+  requestState =true
+  ResponseState=false
   col
-  JobId
+  errortem=false
+  JobId=''
+  upsert=false
   dataInTable
   columns
-  value = '';
-  operation
   sendString=""
+  operationInfo = {"operation" : 'insert',"object" : 'Account',"contentType" : "CSV","lineEnding" : "CRLF"}
   get operations() {
     return [
-      { label: 'Insert', value: 'Insert' },
-      { label: 'Update', value: 'Update' },
-      { label: 'Delete', value: 'Delete' },
-      { label: 'Undelete', value: 'Undelete' },
+      { label: 'Insert', value: 'insert' },
+      { label: 'Update', value: 'update' },
+      { label: 'Upsert', value: 'upsert' },
+      { label: 'Delete', value: 'delete' },
     ];
   }
   get objects() {
     return [
-      { label: 'one', value: '1' },
-      { label: 'two', value: '2' },
-      { label: 'three', value: '3' },
+      { label: 'Account', value: 'Account' },
+      { label: 'Contact', value: 'Contact' },
+      { label: 'Opportunity', value: 'Opportunity' },
     ];
   }
   handleOperation(event){
-    this.operation=event.target.value
+    event.target.value === "update"? this.update = true : this.update = false
+    this.operationInfo.operation = event.target.value
+    console.log(JSON.stringify(this.operationInfo))
   }
-  handleOptionChange(){
-
+  handleOptionChange(event){
+    this.operationInfo.object = event.target.value
+    console.log(JSON.stringify(this.operationInfo))
+  }
+  handleupsert(event){
+    this.operationInfo.externalIdFieldName = event.target.value
   }
 
   changeHandler(event) {
@@ -53,17 +62,16 @@ export default class CreateRecord extends LightningElement {
     this.dataInTable = data
     this.columns = coloumns
   }
-  uploadData(){
-
-  }
   handleOnclick(){
-    createJob().then(result=>{
-      this.JobId=result.Id
-      console.log("Job Id",result.Id)
-
+    console.log(this.sendString)
+    createJob({Body : this.sendString , operationInfo : JSON.stringify(this.operationInfo)}).then(result=>{
+      console.log("Job Id",result)
+      this.requestState=false
+      this.ResponseState=true
+      this.JobId=result
     }).catch(error=>{
+      this.errortem=true
       console.log(error)
-      console.log("some pichakuntla error")
     })
   }
 }

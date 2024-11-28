@@ -1,28 +1,32 @@
 <template>
-    <div>
-        <h1>Please select and object</h1>
-        <lightning-select
-            name="operation"
-            label="Please Select the Operation"
-            value={operation}
-            options={operations}
-            onchange={handleOperation}
-            required ></lightning-select>
-        <lightning-select
-            name="object"
-            label="Please Select the Object"
-            value={object}
-            options={objects}
-            onchange={handleOptionChange}
-            required ></lightning-select>
-    </div>
-    <div class="row">
-        <lightning-textarea name="Input" label="Please Paste your excel here" placeholder="type here..." value={data} onchange={changeHandler}></lightning-textarea>
-    </div>
-        <lightning-datatable
-        data={dataInTable}
-        columns={columns}
-        key-field="Id"
-        style="overflow:scroll">
-    </lightning-datatable>
+    <template lwc:if={requestState}>
+        <div>
+            <lightning-select name="operation" label="Please Select the Operation" value={operations.value}
+                options={operations} onchange={handleOperation} required></lightning-select>
+            <lightning-select name="object" label="Please Select the Object" value={objects.value} options={objects}
+                onchange={handleOptionChange} required></lightning-select>
+            <template lwc:if={upsert}>
+                <lightning-input onchange={handleupsert} label="externalIdFieldName"
+                    placeholder="please enter externalIdFieldName"></lightning-input>
+            </template>
+        </div>
+        <div class="row">
+            <lightning-textarea name="Input" label="Please Paste your excel here" placeholder="type here..."
+                value={data} onchange={changeHandler}></lightning-textarea>
+        </div>
+        <button class="slds-button" onclick={handleOnclick}>Import</button>
+        <lightning-datatable data={dataInTable} columns={columns} key-field="Id" style="overflow:scroll">
+        </lightning-datatable>
+
+    </template>
+
+
+    <template lwc:if={ResponseState}>
+        <template lwc:if={JobId}>
+            <h1>Job Id {JobId}</h1>
+        </template>
+        <template lwc:if={errortem}>
+            <h1>Some Error Occured</h1>
+        </template>
+    </template>
 </template>
