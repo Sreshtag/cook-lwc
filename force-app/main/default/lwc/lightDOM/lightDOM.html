@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="LightDomQuery" icon-name="custom:custom5">
+        <div class="slds-var-m-around_medium">
+            <lightning-button
+                onclick={handleButtonClick}
+                label="Change Text on Child"
+            ></lightning-button>
+        </div>
+
+        <div class="slds-var-m-around_medium">
+            <c-lightdomchild
+                class="slds-show slds-is-relative"
+            ></c-lightdomchild>
+        </div>
+
+       
+    </lightning-card>
+</template>

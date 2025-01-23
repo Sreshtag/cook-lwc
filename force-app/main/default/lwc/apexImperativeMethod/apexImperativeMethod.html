@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Contact List">
+        <lightning-button class="slds-p-around_medium"
+        label="Load Contacts"
+        onclick={handleLoad}
+    ></lightning-button>
+    <div class="slds-p-around_medium">
+        <template lwc:if={contacts}>
+            <template for:each={contacts} for:item="contact">
+                <p key={contact.Id}>{contact.Name}</p>
+            </template>
+        </template>
+    </div>
+    </lightning-card>
+</template>
