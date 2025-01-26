@@ -1,0 +1,5 @@
+NavigationMixin adds two API’s to our component which provide flexibility in handling navigation and URL generation within the app. However, it’s important to note that invoking these functions before the element is connected to the DOM can cause unexpected results, such as failed navigation or incorrect URL generation.
+
+[NavigationMixin.Navigate](pageReference, [replace]) – The Navigate function allows you to programmatically navigate to another page within the Salesforce application. It accepts two arguments: a pageReference object which defines the destination and here we provide details like recordId, objectApiName, actionName and other arguments is an optional replace parameter which is a boolean type if set to true then it will replace the current page in the browser’s history.
+
+NavigationMixin.GenerateUrl(pageReference) – This API is used to generate a URL for a specific page without performing immediate navigation. This function returns a promise that resolves to the URL of the page specified in the pageReference. It is helpful when you don’t want to leave your current page and want to open your navigation page in the new tab.
