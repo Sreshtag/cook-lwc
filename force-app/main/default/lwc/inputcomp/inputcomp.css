@@ -1,0 +1,13 @@
+.custom-input{
+    max-width:450px;
+}
+h1{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.custom-card{
+    max-width: 470px;
+    align-items: center;
+    text-align: center;
+}
