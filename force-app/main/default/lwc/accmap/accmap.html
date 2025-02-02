@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-card">
+        <template lwc:if={markers.length}>
+            <lightning-map
+            map-markers={markers}
+            zoom-level={zoomlevel}>
+            </lightning-map>
+        </template>
+        <template lwc:else>
+            Opps something went wrong!!!!
+        </template>
+    </div>
+    
+</template>
