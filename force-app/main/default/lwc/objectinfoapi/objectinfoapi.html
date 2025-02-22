@@ -1,0 +1,40 @@
+<template>
+    <lightning-card title="get object info api">
+        <div class="slds-var-m-horizontal_medium">
+            <lightning-input value="Account" placeholder="Enter Object API name" label="search"></lightning-input>
+        </div>
+        <div class="slds-var-m-horizontal_medium slds-var-m-vertical_medium">
+            <lightning-button label="get object info" onclick={handlebuttonclick}></lightning-button>
+        </div>
+        <template lwc:if={objectInfo.data}>
+            <div class="scroller">
+                <pre>{objectInfoStr}</pre>
+            </div>
+        </template>
+        <template lwc:elseif={objectInfo.error}> some error occured</template>
+    </lightning-card>
+    <lightning-card title="object info api get picklist values">
+        <div class="slds-var-m-horizontal_medium scroller">
+        <template lwc:if={picklistvalues.data}>
+            <template for:each={picklistvalues.data.values} for:item="item">
+                <lightning-input type="radio" data-value={item.value} key={item.value}
+                    label={item.label}></lightning-input>
+            </template>
+        </template>
+        <template lwc:elseif={picklistvalues.error}> some error occured</template>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="WireGetPicklistValuesByRecordType" icon-name="custom:custom67">
+        <div class="scroller">
+        <template lwc:if={treeModel}>
+            <lightning-layout class="slds-var-m-around_medium">
+                <lightning-tree items={treeModel} header="Account Picklists"></lightning-tree>
+            </lightning-layout>
+        </template>
+        <template lwc:elseif={error}>
+            some error occured
+        </template>
+    </div>
+    </lightning-card>
+</template>
